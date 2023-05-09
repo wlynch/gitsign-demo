@@ -4,6 +4,7 @@ jobs:
   commit:
     permissions:
       id-token: write # Enable OIDC
+      contents: write
     runs-on: ubuntu-latest
     name: Create commit
     steps:
@@ -16,3 +17,5 @@ jobs:
 
           # Dump out sig data as an example to see what we just committed.
           git cat-file commit HEAD | sed -n '/BEGIN/, /END/p' | sed 's/^ //g' | sed 's/gpgsig //g' | sed 's/SIGNED MESSAGE/PKCS7/g' | openssl pkcs7 -print -print_certs -text
+
+          git push origin main
